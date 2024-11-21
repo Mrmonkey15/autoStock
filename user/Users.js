@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize")
 const connection = require("../db/db.js")
-const user = connection.define ('transactions',{
+const User = connection.define ('users',{
     username:{
         type: Sequelize.STRING,
         allowNull:false   
@@ -18,9 +18,9 @@ const user = connection.define ('transactions',{
               
 })
 connection.sync().then(()=>{
-    console.log("Tabela transaction criada com sucesso")
+    console.log("Tabela user sincronizada com sucesso")
 }).catch((err)=>{
     console.log(`erro ${err} ao criar tabela`)
 })
 
-module.exports= user ;
+module.exports= User ;

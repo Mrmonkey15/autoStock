@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize")
 const connection = require("../db/db.js")
-const car = connection.define ('Car',{
+const Car = connection.define ('Cars',{
     make:{
         type: Sequelize.STRING,
         allowNull:false   
@@ -26,6 +26,9 @@ const car = connection.define ('Car',{
     },
     kilometers:{ 
         type: Sequelize.INTEGER
+    },
+    plate:{
+        type: Sequelize.STRING
     }
 
 })
@@ -36,4 +39,4 @@ connection.sync().then(()=>{
     console.log(`erro ${err} ao criar tabela`)
 })
 
-module.exports= car ;
+module.exports= Car ;

@@ -15,7 +15,11 @@ const carsController= require("./cars/carsController")
 //  data base
 
 const connection = require('./db/db');
+const Transactions = require('./cars/Transactions')
+const Users = require('./user/Users')
 const Car = require('./cars/Cars')
+
+
 async function connectToDatabase() {
   try {
     await connection.authenticate();  // Tenta conectar ao banco de dados

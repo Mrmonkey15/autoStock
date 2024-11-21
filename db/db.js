@@ -4,4 +4,6 @@ const connection = new Sequelize('autoStock','root','Piloto307#', {
     dialect:'mysql'
 })
 
+connection.sync()
+
 module.exports= connection;

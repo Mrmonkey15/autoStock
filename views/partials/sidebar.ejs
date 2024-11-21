@@ -1,0 +1,84 @@
+<div id="sidebarClose" class="d-flex justify-content-center align-items-start p-3 bg-body-secundary" style="max-width: 8vw; height: 100vh;">
+    <i class="fa-solid fa-bars fs-3 text-danger" style="cursor: pointer;" id="toggledButton"></i>
+</div>
+<div class="d-none flex-column flex-shrink-0 p-3 bg-body-secundary" style="width: 20vw; height: 100vh;" id="sidebar">
+    <div class="d-flex justify-content-evenly align-items-center">
+        <i class="fa-solid fa-arrow-left text-danger" id="back" style="cursor: pointer" ></i>
+        <span>AutoStock</span>
+    </div>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a href="#" class="nav-link active" aria-current="page">
+          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+          Home
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link link-body-emphasis">
+          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+          Dashboard
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link link-body-emphasis">
+          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+          Orders
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link link-body-emphasis">
+          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+          Products
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link link-body-emphasis">
+          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+          Customers
+        </a>
+      </li>
+    </ul>
+    <hr>
+    <div class="dropdown">
+      <a href="#" class="d-none align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+        <strong>mdo</strong>
+      </a>
+      <ul class="dropdown-menu text-small shadow">
+        <li><a class="dropdown-item" href="#">New project...</a></li>
+        <li><a class="dropdown-item" href="#">Settings</a></li>
+        <li><a class="dropdown-item" href="#">Profile</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="#">Sign out</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    const toggleButton = document.getElementById("toggledButton")
+    toggleButton.addEventListener('click',async()=>{
+        const sidebarClose =document.getElementById("sidebarClose")
+        const sidebar = document.getElementById("sidebar")
+        sidebar.classList.remove('d-none');
+        sidebar.classList.add('d-flex');
+        sidebarClose.classList.remove('d-flex')
+        sidebarClose.classList.add('d-none')
+        const back = document.getElementById('back')
+        back.addEventListener('click', () => {
+        sidebar.classList.remove('d-flex');
+        sidebar.classList.add('d-none');
+        sidebarClose.classList.remove('d-none');
+        sidebarClose.classList.add('d-flex');
+        });
+
+    
+});
+
+
+    
+    
+    
+    
+    
+    </script>

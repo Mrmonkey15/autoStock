@@ -1,14 +1,14 @@
 const Sequelize = require("sequelize");
 const connection = require("../db/db.js");
 const Cars = require("./Cars.js");
-const User = require("../user/User.js");
+const User = require("../user/Users.js");
 
-const Transaction = connection.define("transactions", {
+const Transactions = connection.define("transactions", {
     description: {
         type: Sequelize.TEXT,
         allowNull: false,
     },
-    type: {
+    typeOfTrans: {
         type: Sequelize.STRING,
         allowNull: false,
     },
@@ -16,12 +16,11 @@ const Transaction = connection.define("transactions", {
 
 // Relacionamentos
 
-Transaction.belongsTo(Cars, { foreignKey: "carID" }); // Transação pertence a um carro
-Transaction.belongsTo(User, { foreignKey: "userID" }); // Transação pertence a um usuário
+Transactions.belongsTo(Cars, { foreignKey: "carID" }); // Transação pertence a um carro
+Transactions.belongsTo(User, { foreignKey: "userID" }); // Transação pertence a um usuário
 
 // Sync com o banco de dados
-connection
-    .sync() // Apenas para desenvolvimento; remova em produção
+connection.sync() // Apenas para desenvolvimento; remova em produção
     .then(() => {
         console.log("Tabela transactions sincronizado com sucesso");
     })
@@ -29,4 +28,4 @@ connection
         console.log(`Erro ao criar tabela: ${err}`);
     });
 
-module.exports = Transaction;
+module.exports = Transactions;
