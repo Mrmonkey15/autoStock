@@ -1,10 +1,7 @@
 const Sequelize = require("sequelize")
 const connection = require("../db/db.js")
 const Car = connection.define ('Cars',{
-    make:{
-        type: Sequelize.STRING,
-        allowNull:false   
-    },
+   
     model:{
         type: Sequelize.STRING,
         allowNull:false  
@@ -29,8 +26,10 @@ const Car = connection.define ('Cars',{
     },
     plate:{
         type: Sequelize.STRING
+    },
+    status:{
+        type: Sequelize.STRING
     }
-
 })
 
 connection.sync().then(()=>{
