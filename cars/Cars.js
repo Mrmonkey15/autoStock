@@ -29,7 +29,8 @@ const Car = connection.define ('Cars',{
         type: Sequelize.STRING
     },
     status:{
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+         defaultValue: 'ativo'
     }
 })
 
@@ -40,10 +41,10 @@ Brands.hasMany(Car, {
 });
 Car.belongsTo(Brands, { foreignKey: 'brandId' });
 
-connection.sync().then(()=>{
+/*connection.sync().then(()=>{
     console.log("Tabela Cars sincronizada com sucesso")
 }).catch((err)=>{
     console.log(`erro ${err} ao criar tabela`)
-})
+})*/
 
 module.exports= Car ;

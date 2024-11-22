@@ -20,12 +20,12 @@ Transactions.belongsTo(Cars, { foreignKey: "carID" }); // Transação pertence a
 Transactions.belongsTo(User, { foreignKey: "userID" }); // Transação pertence a um usuário
 
 // Sync com o banco de dados
-connection.sync() // Apenas para desenvolvimento; remova em produção
+/*connection.sync() // Apenas para desenvolvimento; remova em produção
     .then(() => {
         console.log("Tabela transactions sincronizado com sucesso");
     })
     .catch((err) => {
         console.log(`Erro ao criar tabela: ${err}`);
-    });
+    });*/
 
 module.exports = Transactions;

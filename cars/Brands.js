@@ -11,10 +11,10 @@ const Brands = connection.define('Brands', {
   timestamps: true 
 });
 
-connection.sync().then(() => {
+/*connection.sync().then(() => {
   console.log("Tabela marcas criada com sucesso");
 }).catch((err) => {
   console.log(`erro ${err} ao criar tabela marcas`);
-});
+});*/
 
 module.exports = Brands;
