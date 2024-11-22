@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize")
 const connection = require("../db/db.js")
+const Brands = require("./Brands.js")
 const Car = connection.define ('Cars',{
    
     model:{
@@ -31,6 +32,13 @@ const Car = connection.define ('Cars',{
         type: Sequelize.STRING
     }
 })
+
+Brands.hasMany(Car, {
+    foreignKey: 'brandId', // Chave estrangeira no modelo Car
+    onDelete: 'CASCADE',  // Remove carros associados ao excluir a marca
+    onUpdate: 'CASCADE'   // Atualiza a foreignKey ao alterar a marca
+});
+Car.belongsTo(Brands, { foreignKey: 'brandId' });
 
 connection.sync().then(()=>{
     console.log("Tabela Cars sincronizada com sucesso")

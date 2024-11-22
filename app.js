@@ -18,6 +18,7 @@ const connection = require('./db/db');
 const Transactions = require('./cars/Transactions')
 const Users = require('./user/Users')
 const Car = require('./cars/Cars')
+const Brands = require("./cars/Brands")
 
 
 async function connectToDatabase() {
@@ -40,6 +41,9 @@ app.get("/", (req,res)=>{
     res.render('index.ejs')
 
 })
+
+
+
 
 // Rodando o servidor
 
