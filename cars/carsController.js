@@ -5,8 +5,8 @@ const DbManipulator = require("../db/DBManipulator.js");
 const Cars = require("./Cars.js")
 
 
-router.get('/', (req, res) => {
-    res.send("hello world");
+router.get('/cars/list', (req, res) => {
+    res.render('./cars/list');
 });
 
 router.get('/cars/new', async (req, res) => {
@@ -28,6 +28,9 @@ router.post('/api/createNewCar', async (req, res) => {
         res.status(500).json({ message: 'Erro ao cadastrar veículo.' });
     }
 });
+
+
+
 
 
 module.exports = router;
