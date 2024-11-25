@@ -70,17 +70,14 @@
         value = value.replace(/(\d)(?=(\d{3})+(\,|$))/g, '$1.'); 
         input.value = `R$ ${value}`;
     }
-
     // Função para remover espaços e transformar em letras maiúsculas
     function removeSpaces(input) {
         input.value = input.value.replace(/\s+/g, '').toUpperCase(); 
     }
-
     // Função para converter string monetária em número
     function parseCurrency(value) {
         return parseFloat(value.replace(/[R$.]/g, '').replace(',', '.'));
     }
-
     // Função para enviar os dados
     async function sendData(event) {
         event.preventDefault();
@@ -94,13 +91,11 @@
             ? parseCurrency(document.getElementById('marketPrice').value)
             : null;
         const category = document.getElementById('category').value;
-
         const carData = { plate, brand, model, year, kilometers, purchasePrice, marketPrice, category };
-
+        
         try {
-            // Envia os dados usando Axios
             const response = await axios.post('/api/createNewCar', carData);
-            console.log("Dados enviados com sucesso", response);
+            alert(`Veículo com a placa: ${plate}, cadastrado com sucesso! `)
         } catch (error) {
             console.log("Erro ao criar veículo:", error);
         }
