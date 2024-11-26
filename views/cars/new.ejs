@@ -13,7 +13,7 @@
             <select class="form-select mb-3" id="brand" required>
                 <option class="bg-dark-subtle">Escolha uma marca</option>
                 <% brands.forEach((brand) => { %>
-                    <option class="bg-dark-subtle" value="<%= brand.name %>"><%= brand.name %></option>
+                    <option class="bg-dark-subtle" value="<%= brand.id %>"><%= brand.name %></option>
                 <% }); %>
             </select>    
         
@@ -53,7 +53,7 @@
             <div class="d-flex flex-column align-items-center justify-content-center gap-4">
                 <input type="submit" value="Cadastrar" class="btn btn-lg btn-danger m-auto">
                 <p class="mt-2" id="sendBtn">
-                    <a href="#" class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                    <a href="/cars/list" class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
                         <i class="fa-solid fa-list"></i> Ver Lista de veículos
                     </a>
                 </p>
@@ -91,17 +91,17 @@
             ? parseCurrency(document.getElementById('marketPrice').value)
             : null;
         const category = document.getElementById('category').value;
-        const carData = { plate, brand, model, year, kilometers, purchasePrice, marketPrice, category };
+        const carBrand = brand
+        const carData = { plate, model, year, kilometers, purchasePrice, marketPrice, category, brandId: brand };
         
         try {
-            const response = await axios.post('/api/createNewCar', carData);
+            const response = await axios.post('/api/createNewCar', carData );
             alert(`Veículo com a placa: ${plate}, cadastrado com sucesso! `)
         } catch (error) {
             console.log("Erro ao criar veículo:", error);
         }
         
     }
-
     // Adiciona o evento de submit ao formulário
     const carForm = document.getElementById('car-form');
     carForm.addEventListener('submit', sendData);

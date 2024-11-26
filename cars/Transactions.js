@@ -16,11 +16,19 @@ const Transactions = connection.define("transactions", {
 
 // Relacionamentos
 
-Transactions.belongsTo(Cars, { foreignKey: "carID" }); // Transação pertence a um carro
-Transactions.belongsTo(User, { foreignKey: "userID" }); // Transação pertence a um usuário
+Transactions.belongsTo(Cars, { 
+    foreignKey: "carID", 
+    onDelete: 'CASCADE',  // Exclui as transações associadas quando um carro é excluído
+    onUpdate: 'CASCADE'   // Atualiza as transações se o id do carro mudar
+});
+Transactions.belongsTo(User, { 
+    foreignKey: "userID", 
+    onDelete: 'CASCADE',  // Exclui as transações associadas quando um usuário é excluído
+    onUpdate: 'CASCADE'   // Atualiza as transações se o id do usuário mudar
+});
 
 // Sync com o banco de dados
-/*connection.sync() // Apenas para desenvolvimento; remova em produção
+/*connection.sync({alter:true}) // Apenas para desenvolvimento; remova em produção
     .then(() => {
         console.log("Tabela transactions sincronizado com sucesso");
     })
