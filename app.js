@@ -10,6 +10,8 @@ app.use(express.static('public'));
 
 // importa controlers
 const carsController= require("./cars/carsController")
+const userController =require("./user/userController")
+
 
 
 //  data base
@@ -34,6 +36,8 @@ connectToDatabase();
 // importa as Rotas
 
 app.use("/", carsController);
+
+app.use("/", userController);
 
 
 // renderização principal
