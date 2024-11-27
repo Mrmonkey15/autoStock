@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize")
 const connection = require("../db/db.js")
+const { defaultValueSchemable } = require("sequelize/lib/utils")
 const User = connection.define ('users',{
     username:{
         type: Sequelize.STRING,
@@ -15,9 +16,12 @@ const User = connection.define ('users',{
     name:{
             type: Sequelize.TEXT,
             allowNull:false },
+    role:{
+        type: Sequelize.TEXT,
+        defaultValue:"default"}
               
 })
-connection.sync().then(()=>{
+connection.sync({alter:true}).then(()=>{
     console.log("Tabela user sincronizada com sucesso")
 }).catch((err)=>{
     console.log(`erro ${err} ao criar tabela`)
