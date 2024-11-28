@@ -36,7 +36,6 @@ connectToDatabase();
 // importa as Rotas
 
 app.use("/", carsController);
-
 app.use("/", userController);
 
 

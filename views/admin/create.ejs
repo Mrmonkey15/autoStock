@@ -10,23 +10,25 @@
 
             <form id="registerForm" class="container card-body">
                 <label class="mt-2 mb-2">Nome do funcionário</label>
-                <input type="text" name="name" id="name" class="form-control mb-3" placeholder="Nome e sobrenome">
+                <input required type="text" name="name" id="name" class="form-control mb-3" placeholder="Nome e sobrenome">
                 <label class="mt-2 mb-2">Nome do Usúario</label>
-                <input class="form-control mb-3" type="text" placeholder="funcionario_123" id="username">
+                <input required class="form-control mb-3" type="text" placeholder="funcionario_123" id="username">
                 <label class="mt-2 mb-2">E-mail</label>
-                <input type="email" class="form-control mb-3" placeholder="digite@seuemail.com" id="email">
+                <input required type="email" class="form-control mb-3" placeholder="digite@seuemail.com" id="email">
                 <label class="mt-2 mb-2">Digite uma senha</label>
-                <input type="password" class="form-control mb-3" placeholder="*******" id="password">
+                <input required type="password" class="form-control mb-3" placeholder="*******" id="password">
                 <label class="mt-2 mb-2">Confirmar senha</label>
-                <input type="password" class="form-control mb-3" placeholder="*******" id="passwordRepeat">
+                <input required type="password" class="form-control mb-3" placeholder="*******" id="passwordRepeat">
                 <label class="mt-2 mb-2">Tipo de acesso</label>
                 <select name="role" id="role" class="form-select  mb-5">
                     <option value="default">Padrão</option>
                     <option value="admin">Gerente</option>
                     <option value="manager">Administrador</option>
                 </select>  
-                <input type="submit" class="btn btn-outline-danger btn-lg" value="Cadastrar" id="btnSubmit">  
-
+                <div class="d-flex align-items-center justify-content-center">
+                    <input type="submit" class="btn btn-outline-danger btn-lg " value="Cadastrar" id="btnSubmit"> 
+                </div>
+              
                 <div class="d-none gap-3 align-items-center justify-content-center" id="loader">
                     <div class="spinner-border text-danger" role="status">
                         <span class="visually-hidden">Loading...</span>
@@ -34,6 +36,11 @@
                     <span class="text-danger fs-5 fw-bold"> Cadastrando... </span>
                 </div>
             </form>
+            <p class="mt-2" id="sendBtn">
+                <a href="/admin/users/list" class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                    <i class="fa-solid fa-list"></i> Ver Lista de Usuários
+                </a>
+            </p> 
         </div>
     </div>
 </main>
@@ -85,7 +92,6 @@
                 message.classList.add("alert-danger");
                 message.textContent = "Houve um erro ao criar o usuário. Tente novamente.";
                 setTimeout(() => message.classList.add("d-none"), 30000);
-
                 btnSubmit.classList.remove("d-none");
             }
         } else {

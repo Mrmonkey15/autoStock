@@ -1,0 +1,90 @@
+<%- include("../partials/header") %>
+<%- include("../partials/sidebar") %>
+<main class="bg-secondary-subtle w-100 d-flex flex-column justify-content-start align-items-start p-3">
+
+    <div class="mb-3 d-flex w-100 justify-content-between">
+        <button class="btn btn-outline-danger"><i class="fa-solid fa-chart-line"></i> Painel de Controle </button>
+        <h2 class="fs-2 fw-bold text-danger">AutoStock</h2>
+        <button class="btn btn-danger btn-sm"> <a href="/admin/create-user" class="btn text-light"><i class="fa-regular fa-user"></i> Criar Usuário</a></button>
+    </div>
+    
+    <!-- Modal de Confirmação -->
+    <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Confirmar Exclusão</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Você tem certeza de que deseja excluir este usuário? Esta ação não pode ser desfeita.
+                </div>
+                <div class="modal-footer">
+                    <!-- Botão de Cancelar com data-bs-dismiss para fechar o modal -->
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="delBtn">Excluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card rounded-3 w-100 p-2">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-danger text-center">ID</th>
+                    <th scope="col" class="text-danger text-center">Nome</th>
+                    <th scope="col" class="text-danger text-center">Usuário</th>
+                    <th scope="col" class="text-danger text-center">E-mail</th>
+                    <th scope="col" class="text-danger text-center">Tipo de Acesso</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% UserList.forEach(user => { %>
+                    <tr>
+                        <td class="text-center"><%= user.id %></td>
+                        <td class="text-center"><%= user.name %></td>
+                        <td class="text-center"><%= user.username %></td> 
+                        <td class="text-center"><%= user.email %></td>
+                        <td class="text-center"><%= user.role %></td>
+                        <td class="text-center">
+                            <button class="btn" onclick="openDeleteModal(<%= user.id %>)"> <i class="fa-regular fa-pen-to-square"></i></button> 
+                            <button class="btn" onclick="openDeleteModal(<%= user.id %>)"> <i class="fa-solid fa-trash text-danger"></i></button>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<script>
+    let userIdToDelete = null;  // Armazena o ID do usuário a ser excluído
+
+    // Função chamada ao clicar no botão de deletar
+    function openDeleteModal(userId) {
+        userIdToDelete = userId;  // Armazenar o ID do usuário a ser deletado
+        const modalDel = new bootstrap.Modal(document.getElementById('modalDelete'));
+        modalDel.show();  // Exibir o modal
+    }
+
+    // Função para excluir o usuário e fechar o modal
+    document.getElementById("delBtn").addEventListener('click', async function() {
+        if (userIdToDelete) {
+            try {
+                // Requisição axios para deletar o usuário
+                const response = await axios.delete(`/user-delete/${userIdToDelete}`);
+                if (response.data.success) {
+                    location.reload();  // Recarregar a página após a exclusão
+                } else {
+                    alert("Erro ao excluir o usuário.");
+                }
+            } catch (error) {
+                console.error('Erro ao tentar deletar o usuário:', error);
+                alert("Ocorreu um erro ao tentar excluir o usuário.");
+            }
+        }
+    });
+</script>
+
+<%- include("../partials/footer") %>
