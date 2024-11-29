@@ -1,31 +1,12 @@
 <%- include("partials/header") %>
-<main class="container-fluid">
-    <div class="row h-100">
-        <div class="col-8 bg-body-tertiary d-flex justify-content-center align-items-center background-img=">
-            <div class="video-background">
-                <video autoplay muted loop class="video-background__content">
-                    <source src="/1472007_People_Technology_1920x1080.mp4" type="video/mp4">
-                    Seu navegador não suporta o vídeo.
-                </video>
-            </div>
-        </div>    
-        <div class="col-4  d-flex bg-body-tertiary  flex-column justify-content-center align-items-center">
-            <h1 class="mb-5 fs-7 fw-bold fst-italic text-light">AutoStock</h1>
-            <div class="card w-50 rounded-4 p-2 shadow">
-                <form action="" class="form d-flex flex-column gap-2 card-body">
-                    <h1 class="fs-3 text-danger fw-bold mb-3">Login</h1>
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="usuario ou name@example.com ">
-                        <label for="floatingInput">Usuário ou E-mail</label>
-                      </div><div class="form-floating">
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="Digite sua senha...">
-                        <label for="floatingPassword">Senha</label>
-                      </div>
-                    <p><a href="#" class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Esqueci a senha</a></p>                    
-                    <input type="submit"value="Entrar" class="btn btn-lg btn-danger mr-2">
-                </form>
-            </div>
-        </div>  
+<main class="container">
+    <div class="card">
+        <form action="/login" class="form card-body" method="POST">
+            <input type="text" placeholder="E-mail" name="email" class="form-control">
+            <input type="text" placeholder="senha" name="senha" class="form-control">
+            <input type="submit" class="btn btn-primary">
+        </form>
     </div>
+
 </main>
 <%- include("partials/footer") %>
