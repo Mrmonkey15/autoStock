@@ -14,7 +14,7 @@ const User = connection.define ('users',{
             type: Sequelize.STRING,
             allowNull:false },
     name:{
-            type: Sequelize.TEXT,
+            type: Sequelize.TEXT,           
             allowNull:false },
     role:{
         type: Sequelize.TEXT,

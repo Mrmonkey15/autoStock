@@ -5,6 +5,19 @@ const app = express()
 const port = 3000
 const session = require('express-session')
 const bcrypt = require('bcrypt')
+const AdmAuth = require('./middlewares/Authenticate')
+const Auth = require("./middlewares/Authenticate")
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: false,  // Deve ser true em produção, para HTTPS
+    httpOnly: true,  // Impede o acesso ao cookie via JavaScript
+    sameSite: 'strict',  // Impede o envio do cookie em requisições de outros sites
+    maxAge: 3600000  // Sessão expira em 1 hora
+  }
+}));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.set('view engine', 'ejs');
@@ -41,14 +54,6 @@ app.use("/", userController);
 
 //configura o express session 
 
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false,
-            maxAge:50000
-   }
-}))
 
 
 // renderização principal
@@ -57,57 +62,55 @@ app.get("/", (req,res)=>{
 
 })
 app.post("/login", async (req, res) => {
-  try {
-    const { email, pass } = req.body;
-
-    // Validação básica
-    if (!email || !pass) {
-      return res.status(400).send("E-mail e senha são obrigatórios");
+  try{
+  const {email,pass} = req.body
+  const user = await Users.findOne({
+    where:{
+      email:email
+    }
+  })
+  if(user){
+    const userPass = user.password;
+    const passValidation = await bcrypt.compare(pass,userPass)
+    if(passValidation){
+      req.session.user={
+        id: user.id,
+        name: user.name,
+        role: user.role 
+      }
+      console.log('Sessão criada:', req.session.user);  // Verifica a sessão
+      return res.json({status: 'sucess', redirectURL: '/dashboard'})
+    }else{
+      res.status(401).json({msg: "Usuário ou senha incorreto"})
     }
 
-    // Verifica se o usuário existe
-    const user = await Users.findOne({ where: { email } });
-
-    if (!user) {
-      return res.status(400).send("E-mail não encontrado");
-    }
-
-    // Compara a senha fornecida com a senha armazenada no banco
-    const correct = await bcrypt.compare(pass, user.password);
-
-    if (!correct) {
-      return res.status(400).send("Senha incorreta");
-    }
-
-    // Sessão criada com dados do usuário
-    req.session.user = {
-      id: user.id,
-      username: user.username,
-      role: user.role
-    };
-
-    // Redireciona para o dashboard
-    return res.redirect("/dashboard");
-  } catch (erro) {
-    console.log(`Erro código ${erro}`);
-    return res.status(500).send("Erro interno, por favor tente novamente.");
+  }else{
+    res.status(400).json({ msg: "Usúario não cadastrado"})
   }
-});
+}catch (error) {
+            // Mostra a mensagem de erro no console ou em um alerta
+            if (error.response && error.response.data) {
+                console.log(error.response.data.msg);
+            } else {
+                console.log("Erro ao enviar requisição");
+            }
+        }
+})
 
+//logout 
 
-//dashboard
-app.get("/dashboard", (req,res)=>{
-  res.send("Merda de portabilidade")
+app.get("/logout",(req,res)=>{
+  req.session.user = undefined;
+  console.log(req.session.user)
+  res.redirect("/")
+})
+
+//dashboard --- transferir para o User controler
+app.get("/dashboard", Auth,(req,res)=>{
+  res.send("dashboard")
 
 })
 
-app.get('/perfil', (req, res) => {
-  if (req.session.user) {
-      res.send(`Usuário logado: ${req.session.user.username}, Role: ${req.session.user.role}`);
-  } else {
-      res.send('Você não está logado.');
-  }
-});
 
 
 

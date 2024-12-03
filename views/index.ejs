@@ -1,12 +1,47 @@
 <%- include("partials/header") %>
-<main class="container">
-    <div class="card">
-        <form action="/login" class="form card-body" method="POST">
-            <input type="text" placeholder="E-mail" name="email" class="form-control">
-            <input type="password" placeholder="senha" name="pass" class="form-control">
-            <input type="submit" class="btn btn-primary" value="enviar">
-        </form>
+<main class="container-fluid  d-flex justify-content-center align-item-center vh-100 m-auto bg-secondary-subtle"style="background-image: url(/31707.jpg) ; background-repeat: no-repeat; background-position: center; background-size: cover;">
+    <div class="m-auto shadow" >
+        <div class="card p-5 rounded-5 shadow border-danger " >
+            <h2 class="mb-4 text-danger fw-bold fs-3">Bem vindo ao AutoStock</h2>
+            <form action="/login" class="form card-body d-flex flex-column gap-4 " method="POST">
+                <input type="text" placeholder="E-mail" id="email" class="form-control" required>
+                <input type="password" placeholder="senha" id="pass" class="form-control" required>
+                <span><a href="#" class="link-danger">Esqueci a senha</a></span>
+                <input type="submit" class="btn btn-danger" id="btn-submit" value="Entrar">
+                <div class="alert alert-secondary d-none align-item-center gap-2 text-danger" role="alert">
+                    <p class="m-0"><i class="fa-solid fa-triangle-exclamation "></i> E-mail ou senha incorreto </p>
+                  </div>
+            </form>
+        </div>
     </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded",()=>{
+        const btn = document.getElementById("btn-submit") 
+        async function SendRequest(e) {
+        e.preventDefault() 
+        const email = document.getElementById("email").value;
+        const pass = document.getElementById("pass").value;
+         try{
+            const response = await axios.post("/login", {email, pass});
+            if(response.data.status === 'sucess'){
+                window.location.href =  response.data.redirectURL
+            }
+         }
+         catch (error) {
+            // Mostra a mensagem de erro no console ou em um alerta
+            if (error.response && error.response.data) {
+                console.log(error.response.data.msg);
+            } else {
+                console.log("Erro ao enviar requisição");
+            }
+        }}
+    
+        btn.addEventListener("click",SendRequest);
+    })
+    </script>
+
+    
 
 </main>
 <%- include("partials/footer") %>
