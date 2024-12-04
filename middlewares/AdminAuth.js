@@ -4,7 +4,7 @@ async function AdmAuth(req,res,next){
             return next()
     
         } else{
-            return res.redirect('/');
+            return res.json({erro: `Acesso não autorizado, o usuário não possui as credênciais necessárias`});
         }
     }catch(err){
         console.log(err)

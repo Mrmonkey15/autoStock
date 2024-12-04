@@ -4,6 +4,7 @@ async function Auth(req,res,next){
             return next()
     
         } else{
+            
             return res.redirect('/');
         }
     }catch(err){

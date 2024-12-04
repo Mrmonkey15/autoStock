@@ -37,6 +37,7 @@ connectToDatabase();
 // importa controlers
 const carsController= require("./cars/carsController")
 const userController =require("./user/userController")
+const transctionsController = require("./cars/transactionsControllers")
 
 
 //  data base
@@ -51,6 +52,7 @@ const Transactions = require('./cars/Transactions')
 
 app.use("/", carsController);
 app.use("/", userController);
+app.use("/", transctionsController)
 
 //insere marcas dos veículos 
 

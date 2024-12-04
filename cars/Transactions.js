@@ -12,6 +12,10 @@ const Transactions = connection.define("transactions", {
         type: Sequelize.STRING,
         allowNull: false,
     },
+    responsible: {
+        type: Sequelize.STRING,
+        allowNull:true,
+    }
 });
 
 // Relacionamentos
@@ -28,7 +32,7 @@ Transactions.belongsTo(User, {
 });
 
 // Sync com o banco de dados
-connection.sync() // Apenas para desenvolvimento; remova em produção
+connection.sync({alter:true}) // Apenas para desenvolvimento; remova em produção
     .then(() => {
         console.log("Tabela transactions sincronizado com sucesso");
     })

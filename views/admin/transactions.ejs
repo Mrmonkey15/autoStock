@@ -1,0 +1,58 @@
+<%- include("../partials/header") %>
+<%- include("../partials/sidebar") %>
+<main class="bg-secondary-subtle w-100 d-flex flex-column justify-content-start align-items-start p-3">
+    <div class="mb-3 d-flex w-100 justify-content-between">
+        <button class="btn btn-outline-danger"><i class="fa-solid fa-chart-line"></i> Painel de Controle </button>
+        <h2 class="fs-2 fw-bold text-danger">AutoStock</h2>
+        <button class="btn btn-danger btn-sm"> <a href="/cars/new" class="btn text-light"><i class="fa-solid fa-car"></i> Veículos </a></button>
+    </div>
+
+    <div class="card rounded-3 w-100 p-2">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-danger text-center">ID</th>
+                    <th scope="col" class="text-danger text-center">Tipo</th>
+                    <th scope="col" class="text-danger text-center">Valor</th>
+                    <th scope="col" class="text-danger text-center">Descrição</th>
+                    <th scope="col" class="text-danger text-center">Placa</th>
+                    <th scope="col" class="text-danger text-center">Modelo</th>
+                    <th scope="col" class="text-danger text-center">Responsável</th>
+                    <th scope="col" class="text-danger text-center">Data da Movimentação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% trans.forEach((transaction) => { %>   
+                    
+                    <tr>
+                        <td class="text-center"><%= transaction.id %></td>
+                        <td class="text-center">
+                            <% if (transaction.typeOfTrans == 'Entrada') { %>
+                                <i class="fa-solid fa-arrow-right text-success"></i> <p class="text-sucess"><%= transaction.typeOfTrans %></p>
+                            <% } else if (transaction.typeOfTrans == 'saida') { %>
+                                <i class="fa-solid fa-arrow-left text-danger"></i>  <p class="text-sucess"><%= transaction.typeOfTrans %></p>
+                            <% } %>
+                        </td>
+
+                        <td class="text-center">
+                            <%= transaction.Car.purchasePrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) %>
+                        </td>                        
+                        <td class="text-center"><%= transaction.description %></td>
+                        <td class="text-center"><%= transaction.Car.plate %></td> <!-- Certifique-se de que 'Car' está correto -->
+                        <td class="text-center"><%= transaction.Car.model %></td>
+                        <td class="text-center"><%= transaction.responsible %></td>                       
+                        <td class="text-center">
+                            <%= new Date(transaction.updatedAt).toLocaleString('pt-BR', { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' }) %>
+                        </td>                  
+                      </tr>
+                <% }) %>
+                
+              
+            </tbody>
+        </table>
+    </div>
+</main>
+
+
+
+<%- include("../partials/footer") %>

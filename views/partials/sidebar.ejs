@@ -9,11 +9,11 @@
     </div>
     <hr>
     <ul class="nav navbar-expand-lg flex-column mb-auto">
-      <li class="nav-item "><a href="/dashboard" class="nav-link link-dark <% if (currentPage === 'dashboard') { %> text-light bg-danger rounded-4 fw-bold <% } %>">Painel de Controle</a></li>
-      <li class="nav-item "><a href="/cars/list" class="nav-link link-dark <% if (currentPage === 'carList') { %> text-light  bg-danger rounded-4  fw-bold <% } %>">Lista de carros</a></li>
-      <li class="nav-item "><a href="/cars/new" class="nav-link link-dark <% if (currentPage === 'create') { %> text-light  bg-danger rounded-4  fw-bold <% } %>">Novo Veículo</a></li>
-      <li class="nav-item "><a href="#" class="nav-link link-dark <% if (currentPage === 'users') { %> text-light  bg-danger rounded-4  fw-bold<% } %>">Movimentações</a></li>
-      <li class="nav-item "><a href="/admin/users/list" class="nav-link link-dark <% if (currentPage === 'admin') { %> text-light  bg-danger rounded-4  fw-bold <% } %>">Administrador</a></li>
+      <li class="nav-item "> <a href="/dashboard" class="d-flex gap-4 align-item-center nav-link link-dark <% if (currentPage === 'dashboard') { %> text-light bg-danger rounded-4 fw-bold <% } %>"><i class="fas fa-home"></i> <span>Painel de Controle</span></a></li>
+      <li class="nav-item "><a href="/cars/list" class="d-flex gap-4  nav-link link-dark <% if (currentPage === 'carList') { %> text-light  bg-danger rounded-4  fw-bold <% } %>"><i class="fas fa-list-ol"></i><span> Lista de carros</span></a></li>
+      <li class="nav-item "><a href="/cars/new" class="d-flex gap-4  nav-link link-dark <% if (currentPage === 'create') { %> text-light  bg-danger rounded-4  fw-bold <% } %>"><i class="fas fa-car"></i><span> Novo Veículo </span></a> </li>
+      <li class="nav-item "><a href="/admin/transactions" class="d-flex gap-4 nav-link link-dark <% if (currentPage === 'transactions') { %> text-light  bg-danger rounded-4  fw-bold<% } %>"><i class="fas fa-exchange-alt"></i><span> Movimentações</span></a></li>
+      <li class="nav-item "><a href="/admin/users/list" class="d-flex gap-4 nav-link link-dark <% if (currentPage === 'admin') { %> text-light  bg-danger rounded-4  fw-bold <% } %>"><i class="fas fa-user-cog"></i><span> Administrador</span></a></li>
   
     </ul>
     <hr>

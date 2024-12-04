@@ -57,7 +57,8 @@ router.post('/api/createNewCar',Auth, async (req, res) => {
             description: `Cadastro de novo veículo: ${newCar.plate}`,
             typeOfTrans: 'Entrada',
             carID: newCar.id,
-            userID: req.session.user.id
+            userID: req.session.user.id,
+            responsible: req.session.user.name
         });
         res.status(200).json({
             message: 'Veículo e transação cadastrados com sucesso!',
