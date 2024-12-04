@@ -10,6 +10,11 @@ const Cars = require("./Cars.js")
 const Transactions = require("./Transactions.js")
 
 
+// Inseri marcas no BD de marcas 
+
+
+
+
 //lista de carros
 router.get('/cars/list',Auth, async (req, res) => {
     try {
@@ -21,7 +26,7 @@ router.get('/cars/list',Auth, async (req, res) => {
                 }
             ]
         });
-        res.render('cars/list', { carList }); 
+        res.render('cars/list', {carList, currentPage: 'carList'}); 
     } catch (error) {
         console.error("Erro ao buscar a lista de carros:", error);
         res.status(500).send("Erro ao carregar os carros");
@@ -32,7 +37,7 @@ router.get('/cars/list',Auth, async (req, res) => {
 
 router.get('/cars/new',Auth, async (req, res) => {
     const brands = await Brands.findAll();
-    res.render('./cars/new', { brands });
+    res.render('./cars/new', {brands, currentPage: 'create'});
 });
 
 router.post('/api/createNewCar',Auth, async (req, res) => {
@@ -57,7 +62,7 @@ router.post('/api/createNewCar',Auth, async (req, res) => {
         res.status(200).json({
             message: 'Veículo e transação cadastrados com sucesso!',
             car: newCar,
-            transaction: newTransaction,
+            transaction: newTransaction
         });
 
     } catch (err) {

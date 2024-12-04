@@ -36,15 +36,13 @@ const Car = connection.define ('Cars',{
 
 Brands.hasMany(Car, {
     foreignKey: 'brandId', // Chave estrangeira no modelo Car
-    onDelete: 'CASCADE',  // Remove carros associados ao excluir a marca
-    onUpdate: 'CASCADE'   // Atualiza a foreignKey ao alterar a marca
 });
 Car.belongsTo(Brands, { foreignKey: 'brandId' });
 
-/*connection.sync().then(()=>{
+connection.sync().then(()=>{
     console.log("Tabela Cars sincronizada com sucesso")
 }).catch((err)=>{
     console.log(`erro ${err} ao criar tabela`)
-})*/
+})
 
 module.exports= Car ;

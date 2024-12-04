@@ -1,69 +1,37 @@
+
 <div id="sidebarClose" class="d-flex justify-content-center align-items-start p-3 bg-body-secundary" style="width: 9vw; height: 100vh;">
     <i class="fa-solid fa-bars fs-3 text-danger" style="cursor: pointer;" id="toggledButton"></i>
 </div>
-
-
-
 <div class="d-none flex-column flex-shrink-0 p-3 bg-body-secundary" style="width: 13vw; height: 100vh;" id="sidebar">
     <div class="d-flex gap-3 align-items-center ">
         <i class="fa-solid fa-arrow-left text-danger" id="back" style="cursor: pointer" ></i>
-        <span class="fs-4 fw-bold text-danger">AutoStock</span>
+        <span ><a href="/dashboard" class="fs-4 fw-bold text-danger link-underline-light">AutoStock</a></span>
     </div>
     <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item">
-        <a href="#" class="nav-link active" aria-current="page">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-          Home
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link link-body-emphasis">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-          Dashboard
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link link-body-emphasis">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-          Orders
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link link-body-emphasis">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-          Products
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link link-body-emphasis">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-          Customers
-        </a>
-      </li>
+    <ul class="nav navbar-expand-lg flex-column mb-auto">
+      <li class="nav-item "><a href="/dashboard" class="nav-link link-dark <% if (currentPage === 'dashboard') { %> text-light bg-danger rounded-4 fw-bold <% } %>">Painel de Controle</a></li>
+      <li class="nav-item "><a href="/cars/list" class="nav-link link-dark <% if (currentPage === 'carList') { %> text-light  bg-danger rounded-4  fw-bold <% } %>">Lista de carros</a></li>
+      <li class="nav-item "><a href="/cars/new" class="nav-link link-dark <% if (currentPage === 'create') { %> text-light  bg-danger rounded-4  fw-bold <% } %>">Novo Veículo</a></li>
+      <li class="nav-item "><a href="#" class="nav-link link-dark <% if (currentPage === 'users') { %> text-light  bg-danger rounded-4  fw-bold<% } %>">Movimentações</a></li>
+      <li class="nav-item "><a href="/admin/users/list" class="nav-link link-dark <% if (currentPage === 'admin') { %> text-light  bg-danger rounded-4  fw-bold <% } %>">Administrador</a></li>
+  
     </ul>
     <hr>
-    
+    <div class="d-flex justify-content-between align-item-center">
+      <button class="btn"><i class="fa-solid fa-gear"></i></button>
+
       <form action="/logout" method="get">
         <button type="submit" class="btn btn-danger">
           <i class="fa-solid fa-arrow-right-from-bracket"></i> <Span class="ml-2">Sair</Span>
         </button>
       </form> 
 
-   
-    <div class="dropdown">
-      <a href="#" class="d-none align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-        <strong>mdo</strong>
-      </a>
-      <ul class="dropdown-menu text-small shadow">
-        <li><a class="dropdown-item" href="#">New project...</a></li>
-        <li><a class="dropdown-item" href="#">Settings</a></li>
-        <li><a class="dropdown-item" href="#">Profile</a></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="#">Sign out</a></li>
-      </ul>
+
+
+
     </div>
+  
+
   </div>
 
   <script>

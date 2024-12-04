@@ -97,6 +97,7 @@
         try {
             const response = await axios.post('/api/createNewCar', carData );
             alert(`Veículo com a placa: ${plate}, cadastrado com sucesso! `)
+            window.location.href="/cars/list"
         } catch (error) {
             console.log("Erro ao criar veículo:", error);
         }

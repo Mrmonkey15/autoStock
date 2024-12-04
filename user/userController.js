@@ -3,9 +3,16 @@ const router = express.Router();
 const Users = require("./Users");
 const bcrypt = require('bcrypt');
 const User = require("./Users");
+// Painel do adm 
+router.get("/admin/users/list", async(req,res)=>{
+    const UserList = await Users.findAll()
+    res.render("admin/userList", {UserList, currentPage: 'admin'})
+})
+
+// Crud usuário
 
 router.get("/admin/create-user",(req,res)=>{
-    res.render('admin/create')
+    res.render('admin/create', { currentPage:"create" })
 })
 
 router.post("/api/register/user", async (req, res) => {
@@ -33,7 +40,7 @@ router.post("/api/register/user", async (req, res) => {
                 role: role
             });
 
-            res.render("admin/create", { successMessage: "Usuário cadastrado com sucesso!" });
+            res.render("admin/create", { successMessage: "Usuário cadastrado com sucesso!", currentPage:'create' });
         } else {
             // E-mail já está cadastrado
             res.render("admin/create", { errorMessage: "E-mail já cadastrado!" });
@@ -44,10 +51,7 @@ router.post("/api/register/user", async (req, res) => {
     }
 });
 
-router.get("/admin/users/list", async(req,res)=>{
-    const UserList = await Users.findAll()
-    res.render("admin/userList", {UserList})
-})
+
 
 router.delete('/user-delete/:userId', async (req, res) => {
     const userId = req.params.userId;  // Captura o userId da URL

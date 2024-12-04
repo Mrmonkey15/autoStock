@@ -21,7 +21,7 @@ const User = connection.define ('users',{
         defaultValue:"default"}
               
 })
-connection.sync({alter:true}).then(()=>{
+connection.sync().then(()=>{
     console.log("Tabela user sincronizada com sucesso")
 }).catch((err)=>{
     console.log(`erro ${err} ao criar tabela`)
