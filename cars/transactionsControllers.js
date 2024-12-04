@@ -23,7 +23,6 @@ router.get("/admin/transactions",AdminAuth, async (req, res) => {
                 }
             ]
         });
-        console.log(trans)
         res.render("./admin/transactions", { currentPage: 'transactions', trans });
     } catch (erro) {
         res.json({ msg: `Erro ao obter lista de transação ${erro}` });

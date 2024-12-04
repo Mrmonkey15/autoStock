@@ -94,7 +94,7 @@ const insertBrands = async () => {
       await Brands.bulkCreate(brandsList, { ignoreDuplicates: true });
       console.log("Marcas cadastradas com sucesso!");
   } catch (erro) {
-      console.error(`Erro ao cadastrar marcas: ${erro}`);
+      console.log(`Erro ao cadastrar marcas: ${erro}`);
   }
 };
 insertBrands()
@@ -103,8 +103,9 @@ insertBrands()
 // renderização principal
 app.get("/", (req,res)=>{
     res.render('index.ejs')
-
 })
+// validação de login
+
 app.post("/login", async (req, res) => {
   try{
   const {email,pass} = req.body
