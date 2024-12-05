@@ -3,6 +3,8 @@ const router = express.Router();
 const Users = require("./Users");
 const bcrypt = require('bcrypt');
 const User = require("./Users");
+const Cars = require("../cars/Cars")
+const Brands = require("../cars/Brands")
 // Painel do adm 
 router.get("/admin/users/list", async(req,res)=>{
     const UserList = await Users.findAll()
@@ -72,8 +74,25 @@ router.delete('/user-delete/:userId', async (req, res) => {
     }
 });
 
+router.get("/dashboard", async (req, res) => {
+    try {
+        let carsList = await Cars.findAll({
+            include: [
+                {
+                    model: Brands,
+                    attributes: ['name'] 
+                }
+            ]
+        });
+        res.render("dashboard",{currentPage:'dashboard', carsList})
+    } catch (err) {
+        res.json({ error: err.message }); 
+    }
+});
 
 
+  
+  
 
 
 

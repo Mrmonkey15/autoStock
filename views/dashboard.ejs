@@ -1,0 +1,40 @@
+<%- include("partials/header") %>
+<%- include("partials/sidebar") %>
+<main class="bg-secondary-subtle w-100 d-flex flex-column justify-content-center align-items-center">
+    <%- include("partials/navbar") %>
+
+
+    <div class="container-fluid d-flex justify-content-around p-4 bg-light flex-wrap">
+        <% carsList.forEach((car) => { %>
+            <div class="card rounded-5 mb-5" style="max-width: 18vw;">
+                <img class="card-img-top rounded-top-5" src="https://fakeimg.pl/500x500?text=Car-Img" alt="">
+                <div class="card-body p-4 m-auto">
+                    <h5 class="card-title mb-4 text-uppercase"><%= car.Brand.name %> <%= car.model %></h5>
+                    <div class="d-flex gap-2 justify-content-start"><p class="card-text"> Placa: </p><span class="fw-bold"><%= car.plate %></span></div>
+                    <div class="d-flex gap-2 justify-content-start"><p class="card-text"> Ano: </p><span class="fw-bold"><%= car.year %></span></div>
+                    <div class="d-flex gap-2 justify-content-start"><p class="card-text"> Categoria </p><span class="fw-bold"><%= car.category %></span></div>
+                    <div class="d-flex gap-2 justify-content-start"><p class="card-text"> Km: </p><span class="fw-bold"><%= car.kilometers %></span></div>
+                    <div class="d-flex gap-2 justify-content-start"><p class="card-text"> Valor de aquisição: </p>
+                        <span class="fw-bold text-danger">R$<%= car.purchasePrice.toLocaleString('pt-BR') %></span>
+                    </div>
+                    <div class="d-flex gap-2 align-items-center">
+                        <p class="card-text mb-0">Status:</p>
+                        <% if (car.status === 'ativo') { %>
+                            <div class="text-success d-flex align-items-center">
+                                <i class="fa-solid fa-circle text-success me-2"></i>
+                                <span class="fw-bold">Ativo</span>
+                            </div>
+                        <% } else { %>
+                            <div class="text-danger d-flex align-items-center">
+                                <i class="fa-solid fa-circle text-danger me-2"></i>
+                                <span class="fw-bold">Indisponível</span>
+                            </div>
+                        <% } %>
+                    </div>
+                    <div class="d-flex justify-content-center mt-4"><button class="btn btn-danger">Ver mais</button></div>
+                </div>
+            </div>    
+        <% }) %>
+    </div>
+</main>
+<%- include("partials/footer") %>

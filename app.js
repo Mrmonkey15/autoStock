@@ -124,7 +124,7 @@ app.post("/login", async (req, res) => {
         role: user.role 
       }
       console.log('Sessão criada:', req.session.user);  // Verifica a sessão
-      return res.json({status: 'sucess', redirectURL: '/cars/list'})
+      return res.json({status: 'sucess', redirectURL: '/dashboard'})
     }else{
       res.status(401).json({msg: "Usuário ou senha incorreto"})
     }
@@ -149,14 +149,6 @@ app.get("/logout",(req,res)=>{
   console.log(req.session.user)
   res.redirect("/")
 })
-
-//dashboard --- transferir para o User controler
-app.get("/dashboard", Auth,(req,res)=>{
-  res.send("dashboard")
-
-})
-
-
 
 
 // Rodando o servidor

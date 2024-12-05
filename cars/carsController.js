@@ -89,9 +89,6 @@ router.delete('/car-delete/:carId', AdminAuth, async (req, res) => {
 
 
 
-// transações 
-
-
 
 
 
