@@ -7,7 +7,8 @@ const router = express.Router();
 //models
 const Brands = require("./Brands.js");
 const Cars = require("./Cars.js")
-const Transactions = require("./Transactions.js")
+const Transactions = require("./Transactions.js");
+const { where } = require("sequelize");
 
 
 // Inseri marcas no BD de marcas 
@@ -87,9 +88,30 @@ router.delete('/car-delete/:carId', AdminAuth, async (req, res) => {
     }
 });
 
+/*
+router.post('/cars/edit/id', async (req, res) => {
+    try {
+        const carId = req.params.id; // Obtém o ID do carro da URL
 
+        const car = await Cars.findOne({
+            where: { id: carId }, // Corrigir a sintaxe aqui
+            include: [Brands] // Incluindo o modelo Brands
+        });
+    
+        // Verifica se o carro foi encontrado
+        if (!car) {
+            return res.status(404).send("Carro não encontrado");  // Caso o carro não exista
+        }
 
+        // Passa o carro e a marca para a view
+        res.render('./cars/edit', { currentPage: "edit", car });
 
+    } catch (erro) {
+        console.log("Erro ao acessar rota: " + erro);
+        res.status(500).send("Erro interno do servidor");
+    }
+});
+*/ // fazer depois 
 
 
 module.exports = router;

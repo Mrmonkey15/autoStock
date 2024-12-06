@@ -54,8 +54,12 @@
                         <td class="text-center"><%= car.year %></td>
                         <td class="text-center"><%= car.plate %></td>
                         <td class="text-center">
-                            <button class="btn" onclick="openDeleteModal(<%=car.id%>)"> <i class="fa-regular fa-pen-to-square"></i></button> 
                             <button class="btn" onclick="openDeleteModal(<%= car.id %>)"> <i class="fa-solid fa-trash text-danger"></i></button>
+                        </td>
+                        <td>
+                            <form action="/cars/edit/<%= car.id %>" method="POST">
+                                <button class="btn" id="editBtn" type="submit">  <i class="fa-regular fa-pen-to-square"></i></button> 
+                            </form>
                         </td>
                     </tr>
                 <% }) %>
@@ -91,6 +95,8 @@
             }
         }
     });
+
+
 </script>
 
 

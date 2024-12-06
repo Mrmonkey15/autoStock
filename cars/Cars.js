@@ -31,7 +31,13 @@ const Car = connection.define ('Cars',{
     status:{
         type: Sequelize.STRING,
          defaultValue: 'ativo'
+    },
+    color: {
+        type:Sequelize.STRING,
+        allowNull:true,
+        defaultValue: "N/D"
     }
+    
 })
 
 Brands.hasMany(Car, {
