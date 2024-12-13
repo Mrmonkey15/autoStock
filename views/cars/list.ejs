@@ -49,12 +49,12 @@
                         <% } else { %>
                             <td class="text-center"><i class="fa-solid fa-circle text-danger"></i></td>
                         <% } %>            
-                        <td class="text-center"><%= car.model %></td>
-                        <td class="text-center"><%= car.color %></td>
-                        <td class="text-center"><%= car.brand %></td> <!-- Exibindo a marca do carro -->
-                        <td class="text-center"><%= car.category %></td>
-                        <td class="text-center"><%= car.year %></td>
-                        <td class="text-center"><%= car.plate %></td>
+                        <td class="text-center text-uppercase"><%= car.model %></td>
+                        <td class="text-center text-uppercase"><%= car.brand %></td> <!-- Exibindo a marca do carro -->
+                        <td class="text-center text-uppercase"><%= car.color %></td>
+                        <td class="text-center text-uppercase"><%= car.category %></td>
+                        <td class="text-center text-uppercase"><%= car.year %></td>
+                        <td class="text-center text-uppercase"><%= car.plate %></td>
                         <td class="text-center">
                             <button class="btn" onclick="openDeleteModal(<%= car.id %>)"> <i class="fa-solid fa-trash text-danger"></i></button>
                         </td>

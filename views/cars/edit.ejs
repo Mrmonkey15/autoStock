@@ -23,8 +23,8 @@
             <input type="text" id="model" class="form-control mb-3" required value="<%= car.model %>"> 
             
             <label for="color" class="form-label">Cor</label>
-            <select id="color" class="form-select mb-3" required>
-                <option class="bg-dark-subtle">Escolha uma cor</option>
+            <select id="color" class="form-select mb-3" required >
+                <option class="bg-dark-subtle" value="<%= car.color %>">Escolha uma cor</option>
                 <option value="Preta" class="bg-dark-subtle">Preto</option>
                 <option value="Branca" class="bg-dark-subtle">Branco</option>
                 <option value="Vermelho" class="bg-dark-subtle">Vermelho</option>
@@ -118,7 +118,6 @@ editBtn.addEventListener("click", async (event) => {
     const purchasePrice = document.getElementById('purchasePrice').value.replace('R$ ', '').replace('.', '').replace(',', '.');
     const marketPrice = document.getElementById('marketPrice').value.replace('R$ ', '').replace('.', '').replace(',', '.');
     const status = document.getElementById('status').value;
-
     const updatedCarData = {
         plate,
         model,

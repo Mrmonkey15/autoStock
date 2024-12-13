@@ -32,10 +32,15 @@
                             </div>
                         <% } %>
                     </div>
-                    <div class="d-flex justify-content-center mt-4"><button class="btn btn-danger">Ver mais</button></div>
+                    <div class="d-flex justify-content-center mt-4"> <form action="/car/page/<%= car.id %>" method="post"><button class="btn btn-danger" type="submit" >Ver mais</button></form></div>
                 </div>
             </div>    
         <% }) %>
     </div>
 </main>
+
+<script>
+
+
+</script>
 <%- include("partials/footer") %>

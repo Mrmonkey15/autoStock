@@ -23,6 +23,22 @@ router.get("/dashboard", async (req, res) => {
 });
 
 
+router.post('/car/page/:id', async (req,res) => {
+    try{
+        const id = req.params.id;
+        const carInfo = await Cars.findByPk(id);
+        if(!carInfo){
+            res.json({msg:`veículo não encontrado`})
+        }
+        
+        res.render('cars/car',{carInfo, currentPage:"Page"})
+    }catch(erro){
+        console.log(erro)
+    }
+
+    
+})
+
 
 
 
