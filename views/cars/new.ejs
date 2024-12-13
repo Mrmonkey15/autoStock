@@ -12,21 +12,38 @@
             <!-- Marca -->
             <label for="brand" class="form-label">Marca</label>
             <select class="form-select mb-3" id="brand" required>
-                <option class="bg-dark-subtle">Escolha uma marca</option>
-                <% brands.forEach((brand) => { %>
-                    <option class="bg-dark-subtle" value="<%= brand.id %>"><%= brand.name %></option>
-                <% }); %>
+                    <option class="bg-dark-subtle">Escolha uma marca</option>
+                    <% Brands.forEach(brand =>{%>
+                        <option value="<%= brand.name %>"><%= brand.name %> </option>
+                    <%})%>
             </select>    
         
             <label for="model" class="form-label">Modelo</label>
             <input type="text" id="model" class="form-control mb-3" required> 
         
-            <label for="category" class="form-label">Categoria</label>
+            <label for="color" class="form-label">Cor</label>
+            <select id="color" class="form-select mb-3" required>
+                <option class="bg-dark-subtle">Escolha uma cor</option>
+                <option value="Preta" class="bg-dark-subtle">Preto</option>
+                <option value="Branca" class="bg-dark-subtle">Branco</option>
+                <option value="Vermelho" class="bg-dark-subtle">Vermelho</option>
+                <option value="Azul" class="bg-dark-subtle">Azul</option>
+                <option value="Verde" class="bg-dark-subtle">Verde</option>
+                <option value="Amarelo" class="bg-dark-subtle">Amarelo</option>
+                <option value="Laranja" class="bg-dark-subtle">Laranja</option>
+                <option value="Cinza" class="bg-dark-subtle">Cinza</option>
+                <option value="Marrom" class="bg-dark-subtle">Marrom</option>
+                <option value="Roxo" class="bg-dark-subtle">Roxo</option>
+                <option value="Rosa" class="bg-dark-subtle">Rosa</option>
+                <option value="Outras" class="bg-dark-subtle">Outras</option>
+            </select>
+            
+            <label for="categoru" class="form-label">Categoria</label>
+
             <select id="category" class="form-select" required>
                 <option class="bg-dark-subtle">Escolha uma categoria</option>
-                <option value="sedan" class="bg-dark-subtle">Sedan</option>
+                <option value="hatchback" class="bg-dark-subtle">Passeio</option>
                 <option value="SUV" class="bg-dark-subtle">SUV</option>
-                <option value="hatchback" class="bg-dark-subtle">Hatchback</option>
                 <option value="utilitario" class="bg-dark-subtle">Utilitário</option>
                 <option value="conversivel" class="bg-dark-subtle">Conversível</option>
                 <option value="picape" class="bg-dark-subtle">Picape</option>
@@ -83,17 +100,19 @@
     async function sendData(event) {
         event.preventDefault();
         const plate = document.getElementById('plate').value;
-        const brand = document.getElementById('brand').value;
+        //inserir marca
         const model = document.getElementById('model').value;
+        const brand = document.getElementById('brand').value   
+        const color = document.getElementById('color').value 
         const year = parseInt(document.getElementById('year').value, 10);
         const kilometers = parseInt(document.getElementById('kilometers').value, 10);
         const purchasePrice = parseCurrency(document.getElementById('purchasePrice').value);
         const marketPrice = document.getElementById('marketPrice').value
             ? parseCurrency(document.getElementById('marketPrice').value)
             : null;
+
         const category = document.getElementById('category').value;
-        const carBrand = brand
-        const carData = { plate, model, year, kilometers, purchasePrice, marketPrice, category, brandId: brand };
+        const carData = { plate, brand, model, year, kilometers, purchasePrice, marketPrice, category, color};
         
         try {
             const response = await axios.post('/api/createNewCar', carData );

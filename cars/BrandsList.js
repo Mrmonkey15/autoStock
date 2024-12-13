@@ -1,0 +1,33 @@
+const Brands = [
+    { name: "nissan" },
+    { name: "fiat" },
+    { name: "chevrolet" },
+    { name: "volkswagen" },
+    { name: "toyota" },
+    { name: "ford" },
+    { name: "honda" },
+    { name: "renault" },
+    { name: "jeep" },
+    { name: "peugeot" },
+    { name: "hyundai" },
+    { name: "kia" },
+    { name: "bmw" },
+    { name: "mercedes-benz" },
+    { name: "audi" },
+    { name: "land rover" },
+    { name: "chrysler" },
+    { name: "mitsubishi" },
+    { name: "lexus" },
+    { name: "subaru" },
+    { name: "dodge" },
+    { name: "gm" },
+    { name: "volvo" },
+    { name: "jaguar" },
+    { name: "ferrari" },
+    { name: "porsche" },
+    { name: "maserati" },
+    { name: "mini" },
+    { name: "lamborghini" }
+  ];
+
+  module.exports = Brands

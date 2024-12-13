@@ -4,7 +4,6 @@ const Auth = require("../middlewares/Authenticate.js")
 const AdminAuth = require("../middlewares/AdminAuth.js")
 const router = express.Router();
 //models
-const Brands = require("./Brands.js");
 const Cars = require("./Cars.js")
 const Users =require("../user/Users.js")
 const Transactions = require("./Transactions.js")

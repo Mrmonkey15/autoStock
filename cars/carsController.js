@@ -5,13 +5,23 @@ const AdminAuth = require("../middlewares/AdminAuth.js")
 //router
 const router = express.Router();
 //models
-const Brands = require("./Brands.js");
 const Cars = require("./Cars.js")
 const Transactions = require("./Transactions.js");
 const { where } = require("sequelize");
+const Brands = require("./BrandsList.js")
 
 
-// Inseri marcas no BD de marcas 
+// dashboard
+
+router.get("/dashboard", async (req, res) => {
+    try {
+        let carList = await Cars.findAll();
+        res.render("dashboard",{currentPage:'dashboard', carList})
+    } catch (err) {
+        res.json({ error: err.message }); 
+    }
+});
+
 
 
 
@@ -19,15 +29,8 @@ const { where } = require("sequelize");
 //lista de carros
 router.get('/cars/list',Auth, async (req, res) => {
     try {
-        const carList = await Cars.findAll({
-            include: [
-                {
-                    model: Brands, 
-                    attributes: ['name'] 
-                }
-            ]
-        });
-        res.render('cars/list', {carList, currentPage: 'carList'}); 
+        const carList = await Cars.findAll();
+        res.render('cars/list', {Brands,carList, currentPage: 'carList'}); 
     } catch (error) {
         console.error("Erro ao buscar a lista de carros:", error);
         res.status(500).send("Erro ao carregar os carros");
@@ -37,8 +40,8 @@ router.get('/cars/list',Auth, async (req, res) => {
 // Novo veículo
 
 router.get('/cars/new',Auth, async (req, res) => {
-    const brands = await Brands.findAll();
-    res.render('./cars/new', {brands, currentPage: 'create'});
+    
+    res.render('./cars/new', { Brands, currentPage: 'create'});
 });
 
 router.post('/api/createNewCar',Auth, async (req, res) => {
@@ -46,13 +49,14 @@ router.post('/api/createNewCar',Auth, async (req, res) => {
         const data = req.body;
         const newCar = await Cars.create({
             plate: data.plate,
+            brand: data.brand,
             model: data.model,
             year: data.year,
             kilometers: data.kilometers,
             purchasePrice: data.purchasePrice,
             marketPrice: data.marketPrice,
             category: data.category,
-            brandId: data.brandId,
+            color: data.color
         });
         const newTransaction = await Transactions.create({
             description: `Cadastro de novo veículo: ${newCar.plate}`,
@@ -88,30 +92,89 @@ router.delete('/car-delete/:carId', AdminAuth, async (req, res) => {
     }
 });
 
-/*
-router.post('/cars/edit/id', async (req, res) => {
+// renderiza a edição 
+router.get('/edit/:id', async (req, res) => {
     try {
-        const carId = req.params.id; // Obtém o ID do carro da URL
+        const id = req.params.id;  // Agora pegamos o ID da URL
 
-        const car = await Cars.findOne({
-            where: { id: carId }, // Corrigir a sintaxe aqui
-            include: [Brands] // Incluindo o modelo Brands
-        });
-    
-        // Verifica se o carro foi encontrado
-        if (!car) {
-            return res.status(404).send("Carro não encontrado");  // Caso o carro não exista
+        if (!id) {
+            return res.status(400).send("ID do carro não fornecido");
         }
 
-        // Passa o carro e a marca para a view
-        res.render('./cars/edit', { currentPage: "edit", car });
+        // Buscando o carro no banco de dados usando o ID
+        const car = await Cars.findByPk(id);
+
+        if (!car) {
+            return res.status(404).send("Carro não encontrado");
+        }
+
+        // Renderizando a página de edição com as informações do carro
+        res.render('./cars/edit', { currentPage: "edit", car,Brands });
 
     } catch (erro) {
         console.log("Erro ao acessar rota: " + erro);
         res.status(500).send("Erro interno do servidor");
     }
 });
-*/ // fazer depois 
+
+router.put("/cars/edit/updated/:id", async (req, res) => {
+    try {
+        const car = req.body; 
+        const id = req.params.id;
+
+        // Atualizando o carro no banco de dados
+        const [updatedCount] = await Cars.update(
+            {
+                model: car.model,
+                year: car.year,
+                color: car.color,
+                status: car.status,
+                brand: car.brand,
+                plate: car.plate,
+                purchasePrice: car.purchasePrice,
+                marketPrice: car.marketPrice,
+                category: car.category,
+                kilometers: car.kilometers,
+            },
+            {
+                where: { id: id }
+            }
+        );
+
+        // Verificando se o carro foi atualizado
+        if (updatedCount === 0) {
+            return res.status(404).json({ msg: `Veículo com ID ${id} não encontrado` });
+        }
+
+        // Buscando os dados do carro atualizado
+        const updatedCar = await Cars.findByPk(id);
+        if (!updatedCar) {
+            return res.status(404).json({ msg: `Veículo com ID ${id} não encontrado` });
+        }
+
+        // Criando uma transação para o carro atualizado
+        const newTransaction = await Transactions.create({
+            description: `Modificação realizada veículo placa: ${updatedCar.plate}`,
+            typeOfTrans: 'modificacao',
+            carID: updatedCar.id,
+            userID: req.session.user.id,
+            responsible: req.session.user.name
+        });
+
+        // Retornando os dados do carro atualizado e a transação criada
+        res.status(200).json({
+            msg: `Veículo ${updatedCar.plate} atualizado com sucesso`,
+            updatedCar,
+            transaction: newTransaction
+        });
+
+    } catch (error) {
+        // Tratando erros do servidor
+        console.error("Erro ao tentar atualizar veículo:", error);
+        res.status(500).json({ msg: `Erro interno ao atualizar veículo: ${error.message}` });
+    }
+});
+
 
 
 module.exports = router;

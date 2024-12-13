@@ -32,7 +32,7 @@ Transactions.belongsTo(User, {
 });
 
 // Sync com o banco de dados
-connection.sync({alter:true}) // Apenas para desenvolvimento; remova em produção
+connection.sync() // Apenas para desenvolvimento; remova em produção
     .then(() => {
         console.log("Tabela transactions sincronizado com sucesso");
     })

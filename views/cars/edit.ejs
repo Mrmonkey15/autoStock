@@ -3,27 +3,45 @@
 <main class="bg-secondary-subtle w-100 d-flex flex-column justify-content-start align-items-start p-3">
     <%- include("../partials/navbar") %>
 
-    <div class="d-flex flex-column align-items-center card p-4 rounded-4 bg-body-tertiary">
-        <h2 class="text-danger fw-bold fs-3">Cadastro de Novo Veículo</h2>
+    <div class="container d-flex flex-column align-items-center card p-4 rounded-4 bg-body-tertiary w-50 mt-2">
+
         <form id="car-form" class="container card-body">
+            <h2 class="text-secundary fw-bold fs-4">Editar Veículo</h2>
             <label for="plate" class="form-label">Placa</label>
-            <input type="text" id="plate" maxlength="7" class="form-control mb-3" required oninput="removeSpaces(this)">
+            <input type="text" id="plate" maxlength="7" class="form-control mb-3 w-50" required oninput="removeSpaces(this)" value="<%= car.plate %>">
         
             <!-- Marca -->
             <label for="brand" class="form-label">Marca</label>
-            <select class="form-select mb-3" id="brand" required>
-                <option class="bg-dark-subtle">Escolha uma marca</option>
-                <% brands.forEach((brand) => { %>
-                    <option class="bg-dark-subtle" value="<%= brand.id %>"><%= brand.name %></option>
-                <% }); %>
+            <select class="form-select mb-3 text-uppercase" id="brand" required> 
+                <option value="<%= car.brand %>" class="bg-dark-subtle text-uppercase"><%= car.brand %></option>
+                <% Brands.forEach(brand => { %>
+                    <option value="<%= brand.name %>" class="bg-dark-subtle text-uppercase"><%= brand.name %></option>
+                <% }) %>
             </select>    
         
             <label for="model" class="form-label">Modelo</label>
-            <input type="text" id="model" class="form-control mb-3" required> 
-        
+            <input type="text" id="model" class="form-control mb-3" required value="<%= car.model %>"> 
+            
+            <label for="color" class="form-label">Cor</label>
+            <select id="color" class="form-select mb-3" required>
+                <option class="bg-dark-subtle">Escolha uma cor</option>
+                <option value="Preta" class="bg-dark-subtle">Preto</option>
+                <option value="Branca" class="bg-dark-subtle">Branco</option>
+                <option value="Vermelho" class="bg-dark-subtle">Vermelho</option>
+                <option value="Azul" class="bg-dark-subtle">Azul</option>
+                <option value="Verde" class="bg-dark-subtle">Verde</option>
+                <option value="Amarelo" class="bg-dark-subtle">Amarelo</option>
+                <option value="Laranja" class="bg-dark-subtle">Laranja</option>
+                <option value="Cinza" class="bg-dark-subtle">Cinza</option>
+                <option value="Marrom" class="bg-dark-subtle">Marrom</option>
+                <option value="Roxo" class="bg-dark-subtle">Roxo</option>
+                <option value="Rosa" class="bg-dark-subtle">Rosa</option>
+                <option value="Outras" class="bg-dark-subtle">Outras</option>
+            </select>
+            
             <label for="category" class="form-label">Categoria</label>
             <select id="category" class="form-select" required>
-                <option class="bg-dark-subtle">Escolha uma categoria</option>
+                <option class="bg-dark-subtle" value="<%= car.category %>"><%= car.category %></option>
                 <option value="sedan" class="bg-dark-subtle">Sedan</option>
                 <option value="SUV" class="bg-dark-subtle">SUV</option>
                 <option value="hatchback" class="bg-dark-subtle">Hatchback</option>
@@ -37,22 +55,28 @@
             <div class="d-flex mt-3 mb-3 align">
                 <div class="d-flex gap-2 align-items-center">
                     <label class="form-label">Ano:</label>
-                    <input type="number" id="year" class="form-control w-50" step="1" maxlength="4" required>
+                    <input type="number" id="year" class="form-control w-50" step="1" maxlength="4" value="<%= car.year %>">
                 </div>
                 <div class="d-flex gap-2 align-items-center">
                     <label class="form-label">Km:</label>
-                    <input type="number" id="kilometers" class="form-control w-50" required>  
+                    <input type="number" id="kilometers" class="form-control w-50" required value="<%= car.kilometers %>">  
                 </div>
             </div>
         
             <label for="purchasePrice" class="form-label">Valor de Aquisição</label>
-            <input type="text" id="purchasePrice" class="form-control mb-3 text-danger" placeholder="R$ 10.000,00" name="purchasePrice" oninput="formatCurrency(this)" required>
+            <input type="text" id="purchasePrice" class="form-control mb-3 text-danger" placeholder="R$ 10.000,00" name="purchasePrice" oninput="formatCurrency(this)" required value="<%= car.purchasePrice %>">
         
             <label for="marketPrice" class="form-label">Valor Médio de Mercado (opcional)</label>
-            <input type="text" id="marketPrice" class="form-control mb-3" placeholder="R$ 10.000,00" name="marketPrice" oninput="formatCurrency(this)">
+            <input type="text" id="marketPrice" class="form-control mb-3" placeholder="R$ 10.000,00" name="marketPrice" oninput="formatCurrency(this)" value="<%= car.marketPrice %>">
+            
+            <label for="status" class="form-label ">Status do veículo</label>
+            <select class="form-select mb-4" id="status">
+                <option value="ativo">Ativo</option>
+                <option value="inativo">Inativo</option>
+            </select> 
         
             <div class="d-flex flex-column align-items-center justify-content-center gap-4">
-                <input type="submit" value="Cadastrar" class="btn btn-lg btn-danger m-auto">
+                <input type="submit" value="Editar" class="btn btn-lg btn-danger m-auto w-50" id="editBtn">
                 <p class="mt-2" id="sendBtn">
                     <a href="/cars/list" class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover fs-5">
                         <i class="fa-solid fa-list"></i> Ver Lista de veículos
@@ -61,12 +85,6 @@
             </div>
         </form>
     </div>
-    
-
-
-
-
-
 
 </main>
 <script>
@@ -78,17 +96,52 @@ function formatCurrency(input) {
     value = value.replace(/(\d)(?=(\d{3})+(\,|$))/g, '$1.'); 
     input.value = `R$ ${value}`;
 }
+
 // Função para remover espaços e transformar em letras maiúsculas
 function removeSpaces(input) {
     input.value = input.value.replace(/\s+/g, '').toUpperCase(); 
 }
-// Função para converter string monetária em número
-function parseCurrency(value) {
-    return parseFloat(value.replace(/[R$.]/g, '').replace(',', '.'));
-}
 
+const carId = <%=car.id%>;  // Atribui o ID do carro ao JS
+
+const editBtn = document.getElementById("editBtn");
+editBtn.addEventListener("click", async (event) => {
+    event.preventDefault();
+    
+    const plate = document.getElementById('plate').value;
+    const brand = document.getElementById('brand').value;                
+    const model = document.getElementById('model').value;
+    const color = document.getElementById('color').value;
+    const category = document.getElementById('category').value;
+    const year = document.getElementById('year').value;
+    const kilometers = document.getElementById('kilometers').value;
+    const purchasePrice = document.getElementById('purchasePrice').value.replace('R$ ', '').replace('.', '').replace(',', '.');
+    const marketPrice = document.getElementById('marketPrice').value.replace('R$ ', '').replace('.', '').replace(',', '.');
+    const status = document.getElementById('status').value;
+
+    const updatedCarData = {
+        plate,
+        model,
+        brand,
+        color,
+        category,
+        year,
+        kilometers,
+        purchasePrice,
+        marketPrice,
+        status
+    };
+
+    try {
+        const response = await axios.put(`/cars/edit/updated/${carId}`, updatedCarData);
+        console.log(response.data);
+        alert(`${response.data.msg}`);  // Exibe a mensagem de sucesso
+        window.location.href='/cars/list'
+    } catch (err) {
+        alert(`Erro ao atualizar veículo: ${err.response ? err.response.data : err.message}`);
+        console.log(err);
+    }
+});
 </script>
-
-
 
 <%- include("../partials/footer") %>

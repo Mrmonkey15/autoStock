@@ -20,17 +20,21 @@
             </thead>
             <tbody>
                 <% trans.forEach((transaction) => { %>   
-                    
                     <tr>
                         <td class="text-center"><%= transaction.id %></td>
                         <td class="text-center">
                             <% if (transaction.typeOfTrans == 'Entrada') { %>
-                                <i class="fa-solid fa-arrow-right text-success"></i> <p class="text-sucess"><%= transaction.typeOfTrans %></p>
+                                <i class="fa-solid fa-arrow-right text-success"></i> 
+                                <p class="text-success"><%= transaction.typeOfTrans %></p>
                             <% } else if (transaction.typeOfTrans == 'saida') { %>
-                                <i class="fa-solid fa-arrow-left text-danger"></i>  <p class="text-sucess"><%= transaction.typeOfTrans %></p>
+                                <i class="fa-solid fa-arrow-left text-danger"></i>  
+                                <p class="text-danger"><%= transaction.typeOfTrans %></p>
+                            <% } else if (transaction.typeOfTrans == 'modificacao') { %>   
+                                <i class="fa-solid fa-pen-to-square text-secondary"></i>  
+                                <p class="text-secondary"><%= transaction.typeOfTrans %></p> 
                             <% } %>
                         </td>
-
+            
                         <td class="text-center">
                             <%= transaction.Car.purchasePrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) %>
                         </td>                        
@@ -41,11 +45,10 @@
                         <td class="text-center">
                             <%= new Date(transaction.updatedAt).toLocaleString('pt-BR', { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' }) %>
                         </td>                  
-                      </tr>
+                    </tr>
                 <% }) %>
-                
-              
             </tbody>
+            
         </table>
     </div>
 </main>

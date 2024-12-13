@@ -32,6 +32,7 @@
                     <th scope="col" class="text-danger text-center">ID</th>
                     <th scope="col" class="text-danger text-center">Status</th>
                     <th scope="col" class="text-danger text-center">Modelo</th>
+                    <th scope="col" class="text-danger text-center">Cor</th>
                     <th scope="col" class="text-danger text-center">Marca</th>
                     <th scope="col" class="text-danger text-center">Categoria</th>
                     <th scope="col" class="text-danger text-center">Ano</th>
@@ -49,7 +50,8 @@
                             <td class="text-center"><i class="fa-solid fa-circle text-danger"></i></td>
                         <% } %>            
                         <td class="text-center"><%= car.model %></td>
-                        <td class="text-center"><%= car.Brand.name %></td> <!-- Exibindo a marca do carro -->
+                        <td class="text-center"><%= car.color %></td>
+                        <td class="text-center"><%= car.brand %></td> <!-- Exibindo a marca do carro -->
                         <td class="text-center"><%= car.category %></td>
                         <td class="text-center"><%= car.year %></td>
                         <td class="text-center"><%= car.plate %></td>
@@ -57,9 +59,9 @@
                             <button class="btn" onclick="openDeleteModal(<%= car.id %>)"> <i class="fa-solid fa-trash text-danger"></i></button>
                         </td>
                         <td>
-                            <form action="/cars/edit/<%= car.id %>" method="POST">
-                                <button class="btn" id="editBtn" type="submit">  <i class="fa-regular fa-pen-to-square"></i></button> 
-                            </form>
+                            <button class="btn" id="editBtn" type="button" onclick="editCar(<%= car.id %>)">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                            </button>
                         </td>
                     </tr>
                 <% }) %>
@@ -95,6 +97,16 @@
             }
         }
     });
+
+
+    async function editCar(carId) {
+    try {
+        window.location.href = `/edit/${carId}`;
+    } catch (erro) {
+        console.log("Erro ao acessar a rota de edição: " + erro);
+    }
+}
+
 
 
 </script>

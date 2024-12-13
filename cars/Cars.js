@@ -1,15 +1,28 @@
 const Sequelize = require("sequelize")
 const connection = require("../db/db.js")
-const Brands = require("./Brands.js")
 const Car = connection.define ('Cars',{
    
     model:{
         type: Sequelize.STRING,
         allowNull:false  
     },
+    brand:{
+        type: Sequelize.STRING,
+        allowNull: true
+
+    },
+    category: {
+        type: Sequelize.STRING,
+        allowNull:false
+    },
     year: {
         type: Sequelize.INTEGER,
         allowNull:false  
+    },
+    color: {
+        type:Sequelize.STRING,
+        allowNull:true,
+        defaultValue: "N/D"
     },
     purchasePrice: {
         type: Sequelize.FLOAT,
@@ -18,10 +31,7 @@ const Car = connection.define ('Cars',{
     marketPrice: {
         type: Sequelize.FLOAT,
     },
-    category: {
-        type: Sequelize.STRING,
-        allowNull:false
-    },
+
     kilometers:{ 
         type: Sequelize.INTEGER
     },
@@ -32,18 +42,9 @@ const Car = connection.define ('Cars',{
         type: Sequelize.STRING,
          defaultValue: 'ativo'
     },
-    color: {
-        type:Sequelize.STRING,
-        allowNull:true,
-        defaultValue: "N/D"
-    }
-    
 })
 
-Brands.hasMany(Car, {
-    foreignKey: 'brandId', // Chave estrangeira no modelo Car
-});
-Car.belongsTo(Brands, { foreignKey: 'brandId' });
+
 
 connection.sync().then(()=>{
     console.log("Tabela Cars sincronizada com sucesso")

@@ -2,7 +2,7 @@
 
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 4000
 const session = require('express-session')
 const bcrypt = require('bcrypt')
 const AdmAuth = require('./middlewares/Authenticate')
@@ -41,7 +41,6 @@ const transctionsController = require("./cars/transactionsControllers")
 
 
 //  data base
-const Brands = require("./cars/Brands")
 const Car = require('./cars/Cars')
 const Users = require('./user/Users')
 const Transactions = require('./cars/Transactions')
@@ -53,51 +52,6 @@ const Transactions = require('./cars/Transactions')
 app.use("/", carsController);
 app.use("/", userController);
 app.use("/", transctionsController)
-
-//insere marcas dos veículos 
-
-const insertBrands = async () => {
-  try {
-      const brandsList = [
-        { name: "nissan" },
-        { name: "volkswagen" },
-        { name: "honda" },
-        { name: "toyota" },
-        { name: "ford" },
-        { name: "chevrolet" },
-        { name: "bmw" },
-        { name: "mercedes-benz" },
-        { name: "audi" },
-        { name: "peugeot" },
-        { name: "fiat" },
-        { name: "renault" },
-        { name: "hyundai" },
-        { name: "kia" },
-        { name: "jeep" },
-        { name: "chrysler" },
-        { name: "land rover" },
-        { name: "range rover" },
-        { name: "jaguar" },
-        { name: "volvo" },
-        { name: "mazda" },
-        { name: "mitsubishi" },
-        { name: "subaru" },
-        { name: "lincoln" },
-        { name: "cadillac" },
-        { name: "infiniti" },
-        { name: "lexus" },
-        { name: "acura" },
-        { name: "porsche" },
-        { name: "ferrari" }
-      ]
-      ;
-      await Brands.bulkCreate(brandsList, { ignoreDuplicates: true });
-      console.log("Marcas cadastradas com sucesso!");
-  } catch (erro) {
-      console.log(`Erro ao cadastrar marcas: ${erro}`);
-  }
-};
-insertBrands()
 
 
 // renderização principal

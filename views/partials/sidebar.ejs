@@ -1,63 +1,86 @@
-
 <div id="sidebarClose" class="d-flex justify-content-center align-items-start p-3 bg-body-secundary" style="width: 9vw; height: 100vh;">
-    <i class="fa-solid fa-bars fs-3 text-danger" style="cursor: pointer;" id="toggledButton"></i>
+  <i class="fa-solid fa-bars fs-3 text-danger" style="cursor: pointer;" id="toggledButton"></i>
 </div>
-<div class="d-none flex-column flex-shrink-0 p-3 bg-body-secundary" style="width: 13vw; height: 100vh;" id="sidebar">
-    <div class="d-flex gap-3 align-items-center ">
-        <i class="fa-solid fa-arrow-left text-danger" id="back" style="cursor: pointer" ></i>
-        <span ><a href="/dashboard" class="fs-4 fw-bold text-danger link-underline-light">AutoStock</a></span>
-    </div>
-    <hr>
-    <ul class="nav navbar-expand-lg flex-column mb-auto">
-      <li class="nav-item "> <a href="/dashboard" class="d-flex gap-4 align-item-center nav-link link-dark <% if (currentPage === 'dashboard') { %> text-light bg-danger rounded-4 fw-bold <% } %>"><i class="fas fa-home"></i> <span>Painel de Controle</span></a></li>
-      <li class="nav-item "><a href="/cars/list" class="d-flex gap-4  nav-link link-dark <% if (currentPage === 'carList') { %> text-light  bg-danger rounded-4  fw-bold <% } %>"><i class="fas fa-list-ol"></i><span> Lista de carros</span></a></li>
-      <li class="nav-item "><a href="/cars/new" class="d-flex gap-4  nav-link link-dark <% if (currentPage === 'create') { %> text-light  bg-danger rounded-4  fw-bold <% } %>"><i class="fas fa-car"></i><span> Novo Veículo </span></a> </li>
-      <li class="nav-item "><a href="/admin/transactions" class="d-flex gap-4 nav-link link-dark <% if (currentPage === 'transactions') { %> text-light  bg-danger rounded-4  fw-bold<% } %>"><i class="fas fa-exchange-alt"></i><span> Movimentações</span></a></li>
-      <li class="nav-item "><a href="/admin/users/list" class="d-flex gap-4 nav-link link-dark <% if (currentPage === 'admin') { %> text-light  bg-danger rounded-4  fw-bold <% } %>"><i class="fas fa-user-cog"></i><span> Administrador</span></a></li>
-  
-    </ul>
-    <hr>
-    <div class="d-flex justify-content-between align-item-center">
-      <button class="btn"><i class="fa-solid fa-gear"></i></button>
-
-      <form action="/logout" method="get">
-        <button type="submit" class="btn btn-danger">
-          <Span class="ml-2">Sair</Span> <i class="fa-solid fa-arrow-right-from-bracket"></i> 
-        </button>
-      </form> 
-
-
-
-
-    </div>
-  
-
+<div class="d-none flex-column flex-shrink-0 p-3 bg-body-secundary" style="width: 13vw; height: 100vh; 
+    transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.5s ease; 
+    transform: translateX(-100%); opacity: 0;" id="sidebar">
+  <div class="d-flex gap-3 align-items-center">
+      <span><a href="/dashboard" class="fs-4 fw-bold text-danger link-underline-light">AutoStock</a></span>
   </div>
+  <hr>
+  <ul class="nav navbar-expand-lg flex-column mb-auto">
+      <li class="nav-item">
+          <a href="/dashboard" class="d-flex gap-4 align-item-center nav-link link-dark <% if (currentPage === 'dashboard') { %> text-light bg-danger rounded-4 fw-bold <% } %>">
+              <i class="fas fa-home"></i> <span>Painel de Controle</span>
+          </a>
+      </li>
+      <li class="nav-item">
+          <a href="/cars/list" class="d-flex gap-4 nav-link link-dark <% if (currentPage === 'carList') { %> text-light bg-danger rounded-4 fw-bold <% } %>">
+              <i class="fas fa-list-ol"></i><span> Lista de carros</span>
+          </a>
+      </li>
+      <li class="nav-item">
+          <a href="/cars/new" class="d-flex gap-4 nav-link link-dark <% if (currentPage === 'create') { %> text-light bg-danger rounded-4 fw-bold <% } %>">
+              <i class="fas fa-car"></i><span> Novo Veículo </span>
+          </a>
+      </li>
+      <li class="nav-item">
+          <a href="/admin/transactions" class="d-flex gap-4 nav-link link-dark <% if (currentPage === 'transactions') { %> text-light bg-danger rounded-4 fw-bold <% } %>">
+              <i class="fas fa-exchange-alt"></i><span> Movimentações</span>
+          </a>
+      </li>
+      <li class="nav-item">
+          <a href="/admin/users/list" class="d-flex gap-4 nav-link link-dark <% if (currentPage === 'admin') { %> text-light bg-danger rounded-4 fw-bold <% } %>">
+              <i class="fas fa-user-cog"></i><span> Administrador</span>
+          </a>
+      </li>
+  </ul>
+  <hr>
+  <div class="d-flex justify-content-between align-item-center">
+      <button class="btn"><i class="fa-solid fa-gear"></i></button>
+      <form action="/logout" method="get">
+          <button type="submit" class="btn btn-danger">
+              <span class="ml-2">Sair</span> <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          </button>
+      </form>
+  </div>
+</div>
 
-  <script>
-    const toggleButton = document.getElementById("toggledButton")
-    toggleButton.addEventListener('click',async()=>{
-        const sidebarClose =document.getElementById("sidebarClose")
-        const sidebar = document.getElementById("sidebar")
-        sidebar.classList.remove('d-none');
-        sidebar.classList.add('d-flex');
-        sidebarClose.classList.remove('d-flex')
-        sidebarClose.classList.add('d-none')
-        const back = document.getElementById('back')
-        back.addEventListener('click', () => {
-        sidebar.classList.remove('d-flex');
-        sidebar.classList.add('d-none');
-        sidebarClose.classList.remove('d-none');
-        sidebarClose.classList.add('d-flex');
-        });
+<script>
+  const toggleButton = document.getElementById("toggledButton");
+  const sidebar = document.getElementById("sidebar");
+  const sidebarClose = document.getElementById("sidebarClose");
 
-    
-});
+  // Exibe a sidebar suavemente quando o mouse entra no botão de toggle
+  toggleButton.addEventListener('mouseenter', () => {
+      sidebar.classList.remove('d-none');
+      sidebar.classList.add('d-flex');
+      sidebarClose.classList.remove('d-flex');
+      sidebarClose.classList.add('d-none');
+      sidebar.style.transform = "translateX(0)";  // Ativa a transição para a sidebar aparecer
+      sidebar.style.opacity = 1;
+  });
 
+  // Fecha a sidebar suavemente quando o mouse sai da área da sidebar
+  sidebar.addEventListener('mouseleave', () => {
+      sidebar.style.transform = "translateX(-100%)";  // Sidebar vai para fora suavemente
+      sidebar.style.opacity = 0;
+      // Após a transição, esconder a sidebar
+      setTimeout(() => {
+          sidebar.classList.remove('d-flex');
+          sidebar.classList.add('d-none');
+          sidebarClose.classList.remove('d-none');
+          sidebarClose.classList.add('d-flex');
+      }, 500);  // Tempo de espera até a transição terminar
+  });
 
-    
-    
-    
-    
-    
-    </script>
+  // A sidebar será reaberta suavemente quando o mouse entrar no botão de fechar (sidebarClose)
+  sidebarClose.addEventListener('mouseenter', () => {
+      sidebar.classList.remove('d-none');
+      sidebar.classList.add('d-flex');
+      sidebarClose.classList.remove('d-flex');
+      sidebarClose.classList.add('d-none');
+      sidebar.style.transform = "translateX(0)";  // Sidebar volta suavemente
+      sidebar.style.opacity = 1;
+  });
+</script>
