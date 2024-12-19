@@ -52,6 +52,57 @@ router.post("/api/register/user", async (req, res) => {
     }
 });
 
+router.post('/admin/edit/:id', async (req,res) => {
+    
+    try {
+        const id = req.params.id;
+        const user = await Users.findByPk(id)
+        console.log(user)
+        res.render('admin/edit', {user,currentPage:'admin'})    
+    } catch (error) {
+        console.log('erro no servidor'+ error)
+    }
+})
+
+
+
+router.put('/edit/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const userUpdated = req.body;
+
+        // Verifica se o usuário existe no banco de dados
+        const user = await User.findByPk(id);
+        if (!user) {
+            return res.status(404).json({ message: 'Usuário não encontrado' });
+        }
+
+        // Atualiza o usuário com os dados fornecidos
+        await User.update(userUpdated, {
+            where: { id: id },
+        });
+
+        // Retorna uma resposta de sucesso
+        res.status(200).json({
+            message: 'Usuário atualizado com sucesso',
+            data: userUpdated,
+        });
+    } catch (error) {
+        console.error('Erro ao atualizar o usuário:', error);
+
+        // Retorna uma resposta de erro
+        res.status(500).json({
+            message: 'Erro ao atualizar o usuário',
+            error: error.message,
+        });
+    }
+});
+
+
+
+
+
+
 
 
 router.delete('/user-delete/:userId', async (req, res) => {

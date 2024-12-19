@@ -45,8 +45,8 @@
                         <td class="text-center"><%= user.username %></td> 
                         <td class="text-center"><%= user.email %></td>
                         <td class="text-center"><%= user.role %></td>
-                        <td class="text-center">
-                            <button class="btn" onclick="openDeleteModal(<%= user.id %>)"> <i class="fa-regular fa-pen-to-square"></i></button> 
+                        <td class="text-center d-flex">
+                            <form action="/admin/edit/<%= user.id %>" method="POST"><button class="btn" type="submit"> <i class="fa-regular fa-pen-to-square"></i></button> </form>
                             <button class="btn" onclick="openDeleteModal(<%= user.id %>)"> <i class="fa-solid fa-trash text-danger"></i></button>
                         </td>
                     </tr>

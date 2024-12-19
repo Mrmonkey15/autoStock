@@ -1,6 +1,6 @@
 async function Auth(req,res,next){
     try{
-        if(req.session.user.role == "manager"){
+        if(req.session.user.role == "gerente"){
             return next()
     
         } else{

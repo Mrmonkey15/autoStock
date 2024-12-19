@@ -18,7 +18,7 @@ const User = connection.define ('users',{
             allowNull:false },
     role:{
         type: Sequelize.TEXT,
-        defaultValue:"default"}
+        defaultValue:"funcionário"}
               
 })
 connection.sync().then(()=>{

@@ -1,6 +1,6 @@
 async function AdmAuth(req,res,next){
     try{
-        if(req.session.user.role == "admin"){
+        if(req.session.user.role == "administrador"){
             return next()
     
         } else{

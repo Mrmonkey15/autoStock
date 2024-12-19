@@ -5,8 +5,6 @@ const app = express()
 const port = 4000
 const session = require('express-session')
 const bcrypt = require('bcrypt')
-const AdmAuth = require('./middlewares/Authenticate')
-const Auth = require("./middlewares/Authenticate")
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
@@ -25,7 +23,7 @@ app.use(express.static('public'));
 const connection = require('./db/db');
 async function connectToDatabase() {
   try {
-    await connection.authenticate({force:true});  // Tenta conectar ao banco de dados
+    await connection.authenticate();  // Tenta conectar ao banco de dados
     console.log("Conectou com o banco de dados");
   } catch (error) {
     console.log("Erro ao conectar com o banco de dados:", error.message);
